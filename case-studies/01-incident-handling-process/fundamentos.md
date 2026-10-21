@@ -140,7 +140,3 @@ Esta é uma mudança de perspectiva: de **“como uma falha pode ser explorada?�
 - O Skills Assessment foi realizado, mas **a solução não é reproduzida**.
 - Ainda não há aqui coleta independente de logs nem execução de um estudo de caso próprio.
 - Próximo objetivo: aprofundar SIEM, consultas e investigação de eventos em um ambiente controlado com dados autorais.
-
-## Referências
-
-As fontes oficiais e as leituras complementares estão reunidas em [REFERENCIAS.md](../REFERENCIAS.md).
