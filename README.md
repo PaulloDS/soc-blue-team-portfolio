@@ -12,7 +12,7 @@ Sou graduado em **Engenharia de Software** e concluí o **Web Penetration Tester
 
 | Etapa | Módulo | Situação | Registro público |
 | --- | --- | --- | --- |
-| 01 | Incident Handling Process | **Concluído — Skills Assessment realizado** | [Fundamentos de Incident Handling](fundamentos/01-incident-handling-process.md) |
+| 01 | Incident Handling Process | **Concluído — Skills Assessment realizado** | [Fundamentos de Incident Handling](case-studies/01-incident-handling-process) |
 | 02 | Security Monitoring & SIEM Fundamentals | Próximo estudo | — |
 
 Os demais módulos serão incorporados conforme o avanço da formação. Nem todo módulo dará origem a uma publicação: **a prioridade é o valor técnico e a qualidade da documentação**, não a quantidade de arquivos.
