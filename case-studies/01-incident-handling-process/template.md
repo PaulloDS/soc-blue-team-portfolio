@@ -1,6 +1,6 @@
 # Modelo de triagem de alerta — SOC N1
 
-> **TEMPLATE, NÃO UM CASO REAL.** Copie este documento para um novo estudo independente e substitua os campos entre colchetes. Não publique dados internos, pessoais, credenciais ou artefatos protegidos por plataformas de treinamento.
+> **TEMPLATE, NÃO UM CASO REAL.**
 
 ## 1. Identificação
 
