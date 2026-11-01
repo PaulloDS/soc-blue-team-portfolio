@@ -1,0 +1,5 @@
+.env
+data/events.ndjson
+__pycache__/
+.pytest_cache/
+*.pyc

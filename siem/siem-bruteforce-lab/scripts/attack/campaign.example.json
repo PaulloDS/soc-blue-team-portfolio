@@ -1,0 +1,27 @@
+{
+  "profiles": [
+    {
+      "type": "bruteforce",
+      "name": "brute-administrator",
+      "source_ip": "192.168.56.201",
+      "user": "administrator",
+      "wordlist": ["password", "qwerty", "letmein", "admin123", "changeme", "senha123"],
+      "correct": "123456"
+    },
+    {
+      "type": "spray",
+      "name": "spray-varias-contas",
+      "source_ip": "192.168.56.202",
+      "users": ["administrator", "helpdesk", "backup", "labuser2"],
+      "passwords_per_user": 2
+    },
+    {
+      "type": "noise",
+      "name": "servico-com-credencial-velha",
+      "source_ip": "192.168.56.203",
+      "user": "svc_backup",
+      "count": 15,
+      "interval": 45
+    }
+  ]
+}
