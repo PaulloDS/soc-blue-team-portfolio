@@ -1,8 +1,10 @@
 # SIEM Brute Force Detection Lab
 
-**Projetei, construí e testei um laboratório de detecção de intrusão com Elastic Stack — do zero até atacar minha própria VM de verdade e detectar o ataque em tempo real.**
+<img src="https://i.imgur.com/pMgPbSE.png"/>
 
-Feito como projeto prático depois de concluir o módulo *Security Monitoring & SIEM Fundamentals* (HTB Academy, SOC Analyst Path). O objetivo não era só terminar o módulo — era provar, com um sistema funcionando, que sei transformar eventos de log em detecção de verdade.
+**Projetei, construí e testei um laboratório de detecção de intrusão com Elastic Stack do zero até atacar minha própria VM de verdade e detectar o ataque em tempo real.**
+
+Feito como projeto prático depois de concluir o módulo *Security Monitoring & SIEM Fundamentals* (HTB Academy, SOC Analyst Path). O objetivo não era só terminar o módulo, era provar com um sistema funcionando, que sei transformar eventos de log em detecção de verdade.
 
 ## O que este projeto prova
 
@@ -17,7 +19,7 @@ Feito como projeto prático depois de concluir o módulo *Security Monitoring & 
 | Testar detecção como se testa código | `tests/` — 44 testes |
 | Documentar um incidente no formato que um SOC usa | `docs/incident-report.md` |
 
-## O laboratório, em uma imagem
+## O laboratório, em um diagrama
 
 ```
 VM vítima (Linux, Filebeat)  <-- ataque real (Hydra / script Python multi-IP) --  Atacante
@@ -30,23 +32,22 @@ VM vítima (Linux, Filebeat)  <-- ataque real (Hydra / script Python multi-IP) -
 ```
 
 Também existe uma versão sintética (gerador de eventos determinístico) para validar a
-lógica de detecção em segundos, sem depender de VM — útil para revisão de código e CI.
+lógica de detecção em segundos, sem depender de VM, sendo útil para revisão de código e CI.
 As duas coexistem no mesmo repositório.
 
 ## O que aconteceu quando rodei (evidência)
 
-> _Prints reais do meu ambiente: Discover recebendo o ataque, o alerta de sequência
-> disparando e o dashboard consolidado. Ver `docs/img/`._
+> <img src="https://i.imgur.com/JKCFuhC.png"/>
+> <img src="https://i.imgur.com/5y0DFvK.png"/>
 
 Saída real do `./lab.sh verify` contra os dados do meu teste:
 ```
 Limiar (>=5 falhas por IP+usuário, toda a janela do lab):
-   203.0.113.45 -> administrator   40 falhas
-      10.0.5.20 -> svc_backup      30 falhas
-[OK]    brute force detectado (203.0.113.45 -> administrator)
+
+[OK]    brute force detectado (192.168.56.201 -> administrator)
 [OK]    falso positivo visível SEM tuning (svc_backup)
 [OK]    com tuning, só o ataque permanece
-[OK]    password spraying detectado (198.51.100.77)
+[OK]    password spraying detectado (192.168.56.202)
 [OK]    sequência falha->sucesso detectada
 Resultado: TUDO CERTO
 ```
@@ -61,7 +62,7 @@ Resultado: TUDO CERTO
   de outro IP. Mantive uma segunda regra idêntica, sem a exceção, desabilitada, só para
   comparação lado a lado (`docs/tuning.md`).
 - **Testei a lógica de detecção como testo código.** 44 testes cobrem os casos de limite
-  (4 falhas não alertam, 5 alertam) — não só o caminho feliz.
+  (4 falhas não alertam, 5 alertam), não só o caminho feliz.
 - **Fui do simulado para o real de propósito.** O gerador sintético prova a lógica em
   segundos; a VM real prova que o sistema inteiro funciona com dados que eu não controlo.
 
@@ -78,15 +79,15 @@ comparação), mapeadas ao MITRE ATT&CK (T1110, T1110.001, T1110.003), validadas
 | Falhas seguidas de sucesso | EQL sequence | 5+ falhas e depois sucesso, mesmo IP+conta, 10 min | T1110 |
 
 ## Rodar você mesmo (para conferir)
-O projeto é reproduzível — não é só uma descrição do que eu fiz.
+O projeto é reproduzível, não é só uma descrição do que eu fiz.
 ```bash
 pip install -r requirements-dev.txt
 ./lab.sh test                                   # 44 testes, sem precisar de Docker
 ./lab.sh up && ./lab.sh wait && ./lab.sh demo    # sobe o Elastic Stack e roda o cenário completo
 ```
 Abre em `http://localhost:5601` (usuário `elastic`, senha gerada em `.env`). A documentação
-técnica de cada etapa — montar a VM vítima, atacar de verdade, multiplicar os IPs de
-origem, construir o dashboard, gravar a demo — está em `docs/`, para quem quiser entender
+técnica de cada etapa: montar a VM vítima, atacar de verdade, multiplicar os IPs de
+origem, construir o dashboard, gravar a demo, está em `docs/`, para quem quiser entender
 o processo com esse nível de detalhe.
 
 ## Estrutura
@@ -101,7 +102,7 @@ docs/          MITRE, tuning, relatório de incidente, setup da VM real, limita�
 ```
 
 ## Limitações e próximos passos
-O cenário sintético valida lógica, não coleta real — por isso o lab também tem um caminho
+O cenário sintético valida lógica, não coleta real e por isso o lab também tem um caminho
 com VM e tráfego de verdade (`docs/real-soc-lab-howto.md`). Detalhes completos em
 `docs/limitations.md`. Próximo passo: telemetria Windows real com Sysmon, para cobrir o
 cenário de Active Directory, além de ações automatizadas nas regras (alerta por e-mail/webhook).
