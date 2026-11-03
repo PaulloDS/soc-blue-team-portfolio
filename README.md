@@ -13,7 +13,7 @@ Sou graduado em **Engenharia de Software** e concluí o **Web Penetration Tester
 | Etapa | Módulo | Situação | Registro público |
 | --- | --- | --- | --- |
 | 01 | Incident Handling Process | **Concluído — Skills Assessment realizado** | [Fundamentos de Incident Handling](case-studies/01-incident-handling-process) |
-| 02 | Security Monitoring & SIEM Fundamentals | Próximo estudo | — |
+| 02 | Security Monitoring & SIEM Fundamentals | **Concluído** | [SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/) |
 
 Os demais módulos serão incorporados conforme o avanço da formação. Nem todo módulo dará origem a uma publicação: **a prioridade é o valor técnico e a qualidade da documentação**, não a quantidade de arquivos.
 
@@ -21,10 +21,11 @@ Os demais módulos serão incorporados conforme o avanço da formação. Nem tod
 
 - **[Incident Handling Process — fundamentos](case-studies/01-incident-handling-process/fundamentos.md):** eventos, alertas, incidentes, etapas da resposta, triagem, correlação, enriquecimento e diferenças entre modelos do NIST.
 - **[Template de triagem de alertas](case-studies/01-incident-handling-process/template.md):** estrutura autoral para registrar hipóteses, evidências, severidade, ações e encaminhamentos em investigações futuras.
+- **[SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/):** Elastic Stack com Docker, geração de eventos sintéticos, regras de detecção, consultas KQL, testes e fluxo opcional de ataque SSH em laboratório controlado. [Limitações e evidências](siem/siem-bruteforce-lab/docs/limitations.md).
 
 ## Competências em desenvolvimento
 
-`Incident Response` · `Alert Triage` · `Case Management` · `TheHive` · `Network Security` · `Log Analysis` · `SIEM (em estudo)`
+`Incident Response` · `Alert Triage` · `Case Management` · `TheHive` · `Network Security` · `Log Analysis` · `Elastic Stack (laboratório)` · `KQL` · `Detection Engineering (laboratório)`
 
 A ferramenta **TheHive** foi utilizada em ambiente de avaliação da HTB no módulo *Incident Handling Process*. A documentação aqui publicada descreve princípios gerais e referências públicas; **não reproduz o cenário nem o passo a passo do assessment**.
 
@@ -39,9 +40,9 @@ Um alerta é um ponto de partida, não uma conclusão. Antes de classificá-lo, 
 
 ## Próximas entregas propostas
 
-- Estudo independente de eventos de autenticação e correlação de logs;
-- Experimentos próprios com SIEM e criação de consultas;
-- Relatório de incidente baseado em ambiente simulado, com evidências reproduzíveis.
+- Ampliar a coleta de telemetria real com Windows Event Logs / Sysmon;
+- Versionar evidências locais do Kibana, distinguindo testes Python e alertas do mecanismo de detecção;
+- Investigar novos cenários e produzir relatórios baseados em logs próprios de laboratório.
 
 Essas entregas estão **planejadas, não realizadas**; serão publicadas somente após execução e revisão técnica.
 
