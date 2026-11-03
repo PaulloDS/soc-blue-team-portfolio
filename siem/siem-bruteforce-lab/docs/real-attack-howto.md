@@ -4,9 +4,7 @@ Até aqui os dados vêm de um gerador (`generator/`). Esta parte é diferente: s
 **SSH real** com senha fraca de propósito, ataca de verdade com **Hydra** e ingere os
 **logs reais** que o SSH gerou — não é simulação de simulação.
 
-**Isolamento:** o alvo só existe dentro da rede do Docker Compose, não é exposto fora do
-seu host, e só sobe com `--profile attack` (nunca com `./lab.sh up` normal). É só para
-o seu laboratório local.
+**Isolamento:** o alvo sobe apenas sob demanda com `--profile attack` e a porta SSH é publicada em **127.0.0.1** por padrão (via `ATTACK_BIND_IP`). O contêiner não deve ficar acessível à rede corporativa ou à internet. A rede Docker e a porta local não equivalem a isolamento completo de uma máquina comprometida; use este projeto somente em ambiente controlado.
 
 ## Pré-requisito
 Hydra instalado. No Kali já vem. Em Ubuntu/Debian: `sudo apt install hydra`.
@@ -23,9 +21,7 @@ O script:
 4. converte para o mesmo formato ECS do lab (`scripts/attack/parse_sshd_log.py`)
 5. ingere no mesmo índice `lab-winlogs`, marcado com `lab.scenario:real_attack`
 
-O resultado do Hydra pode variar (ele usa múltiplas threads, a ordem das tentativas não é
-100% determinística). O que importa para o lab: **várias falhas reais seguidas de um
-possível sucesso**, exatamente o padrão que a regra de sequência foi feita para pegar.
+O resultado do Hydra pode variar (múltiplas threads tornam a sequência não determinística). O fluxo produz autenticações SSH reais no alvo controlado e faz parsing e ingestão dos logs; isso **não garante** que a regra de sequência nativa do Kibana disparará. Confirme separadamente a criação e execução da regra e capture o alerta com seu identificador e hora.
 
 ## Ver no Kibana
 - Discover: `lab.scenario:real_attack` — IPs, portas de origem e usuários são os que o Hydra realmente usou
@@ -40,6 +36,4 @@ Suba de novo (`run_attack.sh` builda sozinho) sempre que quiser gerar um ataque 
 senha e a wordlist podem ser trocadas em `scripts/attack/wordlist.txt`.
 
 ## Por que isso é melhor que só mostrar o gerador
-Quem avalia o projeto consegue ver, no seu vídeo, o Hydra rodando em um terminal e o
-alerta aparecendo no Kibana segundos depois. É a prova de que a detecção reage a tráfego
-real, não só a dados fabricados.
+Uma boa demonstração pode mostrar Hydra, registros de autenticação no SSH, eventos ingeridos em Discover e, **se efetivamente emitido**, o alerta nativo do Kibana. Cada etapa precisa de evidência própria: tráfego gerado não equivale automaticamente a detecção concluída.
