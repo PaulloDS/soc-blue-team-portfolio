@@ -4,9 +4,9 @@
 
 **Laboratório autoral de monitoramento e detecção de tentativas de autenticação com Elastic Stack, Docker, Python e regras para Kibana Security.** A implementação inclui cenários sintéticos reproduzíveis, testes de lógica e fluxos opcionais para capturar logs reais de SSH em ambiente isolado. As evidências publicadas devem ser interpretadas conforme o nível de validação descrito abaixo.
 
-Feito como projeto prático depois de concluir o módulo *Security Monitoring & SIEM Fundamentals* (HTB Academy, SOC Analyst Path). O objetivo não era só terminar o módulo, era provar com um sistema funcionando, que sei transformar eventos de log em detecção de verdade.
+Feito como projeto prático depois de concluir o módulo *Security Monitoring & SIEM Fundamentals* (HTB Academy, SOC Analyst Path). O objetivo foi praticar o caminho entre telemetria, consultas, regras de detecção, testes e investigação, documentando separadamente o que foi implementado e o que ainda depende de validação em ambiente real.
 
-## O que este projeto prova
+## O que este projeto implementa e documenta
 
 | Competência | Onde está no repositório |
 |---|---|
