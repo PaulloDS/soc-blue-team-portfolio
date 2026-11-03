@@ -1,5 +1,9 @@
 .env
-data/events.ndjson
+# Não publicar logs gerados ou material de execução que possa conter dados locais.
+data/*
+!data/.gitkeep
+scripts/attack/campaign.json
 __pycache__/
 .pytest_cache/
 *.pyc
+.venv/
