@@ -7,10 +7,7 @@ container fazendo o papel de vítima: você sobe uma **VM de verdade**, instala 
 realmente registrou a tentativa de login. É o mais próximo de um SOC real que dá
 para montar em um notebook.
 
-**Eu não consigo executar nada disso aqui** (este sandbox não tem VM, GUI nem acesso à
-sua rede). O que garanto é a lógica: o gerador de regras (`detections/build_rules_real.py`)
-e os testes que provam que as 4 regras apontam certo para os índices reais. O resto você
-valida na sua máquina — e é isso que você vai mostrar funcionando no vídeo.
+> **Estado da validação:** este documento é um roteiro de implantação para um ambiente independente com VM. O repositório apresenta código e testes de lógica, mas não contém logs brutos de execução da VM nem capturas locais versionadas que demonstrem o disparo de alertas. Não confunda instruções de execução com resultados já verificados.
 
 ## Topologia
 ```
@@ -56,8 +53,7 @@ Teste de dentro da VM vítima:
 ```bash
 curl -u elastic:SUASENHA http://192.168.56.1:9200
 ```
-Se não responder, confira o firewall do host (libere a porta 9200 para a rede Host-only)
-e se o `docker-compose.yml` publica `9200:9200` (já publica, por padrão).
+Por segurança, o `docker-compose.yml` publica a porta 9200 **somente em 127.0.0.1 por padrão**. Para acesso da VM, configure no `.env` o IP **exato** da interface Host-only do host, por exemplo `ES_BIND_IP=192.168.56.1`, e reinicie a stack com `docker compose up -d`. Se precisar usar Kibana diretamente pela VM, configure também `KIBANA_BIND_IP=192.168.56.1`. Mantenha firewall limitado à rede do laboratório; não use `0.0.0.0`, Bridged nem IP público. A VM deve conseguir acessar a interface Host-only.
 
 ### A.3 Instalar e configurar o Filebeat na vítima
 ```bash
@@ -160,10 +156,10 @@ o arquivo para `real_lab_rules.ndjson`). As 4 regras são as mesmas de antes (li
 sequência, tunada x sem tuning), só que lendo `filebeat-*`/`winlogbeat-*` em vez do índice
 sintético.
 
-## Dashboard e alertas
-Mesmos passos de `docs/kibana-dashboard-howto.md`, só trocando a data view para
-`filebeat-*` ou `winlogbeat-*`. **Security > Alerts** vai mostrar o alerta de verdade,
-com o IP real do seu ataque.
+## Dashboard, validação e alertas
+Siga `docs/kibana-dashboard-howto.md` utilizando a data view de telemetria real (`filebeat-*` ou `winlogbeat-*`). **Security > Alerts** só deverá mostrar um alerta se a regra estiver corretamente importada, habilitada, licenciada quando necessário, compatível com o esquema ECS real e executada durante a janela dos eventos.
+
+Ao executar, registre: logs originais, mapeamento ECS, horário/fuso, ID e resultado de execução da regra, evidência do alerta (ou da ausência dele), e limitações. Anexe capturas locais sanitizadas em `docs/img/` e identifique a origem dos dados. Não descreva como comprovado algo que ainda não esteja documentado.
 
 ## Isolamento e segurança (não pule isso)
 - Rede **Host-only/Internal** nas VMs — nunca Bridged, nunca exponha à internet
