@@ -2,7 +2,7 @@
 
 <img src="https://i.imgur.com/pMgPbSE.png"/>
 
-**Projetei, construí e testei um laboratório de detecção de intrusão com Elastic Stack do zero até atacar minha própria VM de verdade e detectar o ataque em tempo real.**
+**Laboratório autoral de monitoramento e detecção de tentativas de autenticação com Elastic Stack, Docker, Python e regras para Kibana Security.** A implementação inclui cenários sintéticos reproduzíveis, testes de lógica e fluxos opcionais para capturar logs reais de SSH em ambiente isolado. As evidências publicadas devem ser interpretadas conforme o nível de validação descrito abaixo.
 
 Feito como projeto prático depois de concluir o módulo *Security Monitoring & SIEM Fundamentals* (HTB Academy, SOC Analyst Path). O objetivo não era só terminar o módulo, era provar com um sistema funcionando, que sei transformar eventos de log em detecção de verdade.
 
@@ -15,8 +15,8 @@ Feito como projeto prático depois de concluir o módulo *Security Monitoring & 
 | Construir regras de detecção (limiar, cardinalidade, sequência EQL) | `detections/build_rules.py` |
 | Mapear detecções para MITRE ATT&CK | `docs/mitre-mapping.md` |
 | Fazer tuning de um falso positivo com uma decisão documentada | `docs/tuning.md` |
-| Montar um alvo real (VM com agente de coleta) e atacar de verdade | `docs/real-soc-lab-howto.md` |
-| Testar detecção como se testa código | `tests/` — 44 testes |
+| Documentar um roteiro de VM com agente de coleta | `docs/real-soc-lab-howto.md` — instruções, sem logs/capturas da VM versionados |
+| Testar lógica de detecção como código | `tests/` — suíte de testes automatizados; o README anteriormente informava 44 testes (confirme a contagem no seu ambiente com `./lab.sh test`) |
 | Documentar um incidente no formato que um SOC usa | `docs/incident-report.md` |
 
 ## O laboratório, em um diagrama
@@ -24,30 +24,30 @@ Feito como projeto prático depois de concluir o módulo *Security Monitoring & 
 ```
 VM vítima (Linux, Filebeat)  <-- ataque real (Hydra / script Python multi-IP) --  Atacante
          |
-         | logs reais de autenticação
+         | logs reais de autenticação (etapa opcional; exigir evidência)
          v
    Elasticsearch + Kibana (Docker Compose)
          |
-   4 regras de detecção -> Security > Alerts
+   4 definições de regras -> Security > Alerts (validar disparos no Kibana)
 ```
 
 Também existe uma versão sintética (gerador de eventos determinístico) para validar a
 lógica de detecção em segundos, sem depender de VM, sendo útil para revisão de código e CI.
 As duas coexistem no mesmo repositório.
 
-## O que aconteceu quando rodei (evidência)
+## Resultados documentados e níveis de evidência
 
 > <img src="https://i.imgur.com/JKCFuhC.png"/>
 > <img src="https://i.imgur.com/5y0DFvK.png"/>
 
-Saída real do `./lab.sh verify` contra os dados do meu teste:
+O trecho abaixo é uma **saída ilustrativa/documentada do verificador** para o cenário sintético. O script consulta agregações do Elasticsearch e compara com a lógica Python; **não valida sozinho** os alertas emitidos pelo motor de regras do Kibana:
 ```
 Limiar (>=5 falhas por IP+usuário, toda a janela do lab):
 
-[OK]    brute force detectado (192.168.56.201 -> administrator)
+[OK]    brute force detectado (203.0.113.45 -> administrator)
 [OK]    falso positivo visível SEM tuning (svc_backup)
 [OK]    com tuning, só o ataque permanece
-[OK]    password spraying detectado (192.168.56.202)
+[OK]    password spraying detectado (198.51.100.77)
 [OK]    sequência falha->sucesso detectada
 Resultado: TUDO CERTO
 ```
@@ -67,9 +67,7 @@ Resultado: TUDO CERTO
   segundos; a VM real prova que o sistema inteiro funciona com dados que eu não controlo.
 
 ## Resultado técnico
-4 regras de detecção (limiar, spraying, sequência EQL, e uma variante sem tuning para
-comparação), mapeadas ao MITRE ATT&CK (T1110, T1110.001, T1110.003), validadas por
-44 testes automatizados e por um ataque real contra uma VM própria.
+Quatro definições de regras (limiar, spraying, sequência EQL e variante desabilitada sem tuning) estão disponíveis e mapeadas ao MITRE ATT&CK (T1110, T1110.001 e T1110.003). A lógica de detecção Python dispõe de testes automatizados; a integração no Elasticsearch é verificável com `./lab.sh verify`. Execução de ataque real e geração de alertas nativos do Kibana exigem evidências específicas, distintas dos dados gerados sinteticamente.
 
 | Regra | Tipo | Lógica | MITRE |
 |---|---|---|---|
@@ -85,7 +83,7 @@ pip install -r requirements-dev.txt
 ./lab.sh test                                   # 44 testes, sem precisar de Docker
 ./lab.sh up && ./lab.sh wait && ./lab.sh demo    # sobe o Elastic Stack e roda o cenário completo
 ```
-Abre em `http://localhost:5601` (usuário `elastic`, senha gerada em `.env`). A documentação
+A interface local fica em `http://localhost:5601` (usuário `elastic`, senha definida em `.env`; o arquivo é copiado de `.env.example`, portanto altere a senha de exemplo antes de executar). As portas do host ficam vinculadas a `127.0.0.1` por padrão. Para acesso por uma VM isolada, configure explicitamente o IP da interface Host-only no `.env`, conforme `docs/real-soc-lab-howto.md`. A documentação
 técnica de cada etapa: montar a VM vítima, atacar de verdade, multiplicar os IPs de
 origem, construir o dashboard, gravar a demo, está em `docs/`, para quem quiser entender
 o processo com esse nível de detalhe.
@@ -101,11 +99,9 @@ tests/         44 testes (pytest)
 docs/          MITRE, tuning, relatório de incidente, setup da VM real, limitações
 ```
 
-## Limitações e próximos passos
+## Integridade das evidências, limitações e próximos passos
 O cenário sintético valida lógica, não coleta real e por isso o lab também tem um caminho
-com VM e tráfego de verdade (`docs/real-soc-lab-howto.md`). Detalhes completos em
-`docs/limitations.md`. Próximo passo: telemetria Windows real com Sysmon, para cobrir o
-cenário de Active Directory, além de ações automatizadas nas regras (alerta por e-mail/webhook).
+com VM e tráfego de verdade (`docs/real-soc-lab-howto.md`). Detalhes em [limitações](docs/limitations.md) e no [relatório sintético](docs/incident-report.md). A pasta `docs/img/` ainda não contém as capturas citadas no relatório antigo; imagens externas incorporadas acima não substituem logs, IDs de alertas e capturas locais verificáveis. Próximos passos: coleta Windows/Sysmon, evidência de execução das regras no Kibana e integração opcional de notificações (e-mail/webhook).
 
 ## Licença
 MIT. Autor: Paulo Douglas.
