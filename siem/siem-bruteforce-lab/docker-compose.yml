@@ -8,7 +8,7 @@ services:
       - xpack.security.http.ssl.enabled=false
       - xpack.license.self_generated.type=basic
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
-    ports: ["9200:9200"]
+    ports: ["${ES_BIND_IP:-127.0.0.1}:9200:9200"]
     volumes: ["esdata:/usr/share/elasticsearch/data"]
     healthcheck:
       test: ["CMD-SHELL", "curl -s -u elastic:${ELASTIC_PASSWORD} http://localhost:9200/_cluster/health | grep -qE '\"status\":\"(green|yellow)\"'"]
@@ -37,14 +37,14 @@ services:
       - XPACK_SECURITY_ENCRYPTIONKEY=lab-only-security-key-0123456789abcdef
       - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=lab-only-saved-objs-0123456789abcdef
       - XPACK_REPORTING_ENCRYPTIONKEY=lab-only-reporting-0123456789abcdef
-    ports: ["5601:5601"]
+    ports: ["${KIBANA_BIND_IP:-127.0.0.1}:5601:5601"]
 
   # Alvo SSH de ataque de verdade. Só sobe sob demanda (profile "attack"),
   # nunca com "./lab.sh up" normal.
   attack-target:
     build: ./attack-target
     profiles: ["attack"]
-    ports: ["2222:22"]
+    ports: ["${ATTACK_BIND_IP:-127.0.0.1}:2222:22"]
 
 volumes:
   esdata:
