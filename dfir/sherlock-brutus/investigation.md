@@ -1,4 +1,4 @@
-# Relatório DFIR — Sherlock Brutus
+# Relatório DFIR: Sherlock Brutus
 
 **Tipo:** estudo de caso técnico de cenário fictício e aposentado da Hack The Box  
 **Origem:** Sherlock Brutus (Linux / SSH)  
@@ -13,10 +13,10 @@ Investigar um possível comprometimento de servidor Linux por tentativa de adivi
 
 **Hipóteses de trabalho**
 
-- H1 — uma origem efetuou diversas falhas SSH em curta janela, seguidas por autenticação bem-sucedida;
-- H2 — o acesso resultou em sessão interativa no servidor;
-- H3 — o agente criou outra identidade local com privilégios elevados;
-- H4 — houve tentativa de acessar material de autenticação e de buscar conteúdo externo.
+- H1: uma origem efetuou diversas falhas SSH em curta janela, seguidas por autenticação bem-sucedida;
+- H2: o acesso resultou em sessão interativa no servidor;
+- H3: o agente criou outra identidade local com privilégios elevados;
+- H4: houve tentativa de acessar material de autenticação e de buscar conteúdo externo.
 
 Essas hipóteses precisam de confirmação por linhas dos logs, não apenas por associação com técnicas MITRE.
 
@@ -63,40 +63,40 @@ A ordem abaixo corresponde ao **encadeamento público do cenário**. Não é uma
 
 | Ordem | Marco | Fonte esperada | Horário UTC / evidência pessoal |
 | --- | --- | --- | --- |
-| 1 | Série de falhas de autenticação SSH | `auth.log` / `sshd` | **A conferir** — [E01](evidence/README.md) |
-| 2 | Autenticação bem-sucedida em conta privilegiada | `auth.log` / `sshd` | **A conferir** — [E02](evidence/README.md) |
-| 3 | Abertura e encerramento de sessão interativa | `wtmp` e mensagens de sessão | **A conferir** — [E03](evidence/README.md) |
-| 4 | Criação de usuário local e concessão de privilégios | `auth.log` / auditoria disponível | **A conferir** — [E04](evidence/README.md) |
-| 5 | Atividade autenticada como a identidade recém-criada | `auth.log` + `wtmp` | **A conferir** — [E05](evidence/README.md) |
-| 6 | Leitura de `/etc/shadow` e comando envolvendo recurso remoto | Registros `sudo`, caso presentes | **A conferir** — [E06](evidence/README.md) |
+| 1 | Série de falhas de autenticação SSH | `auth.log` / `sshd` | **A conferir**: [E01](evidence/README.md) |
+| 2 | Autenticação bem-sucedida em conta privilegiada | `auth.log` / `sshd` | **A conferir**: [E02](evidence/README.md) |
+| 3 | Abertura e encerramento de sessão interativa | `wtmp` e mensagens de sessão | **A conferir**: [E03](evidence/README.md) |
+| 4 | Criação de usuário local e concessão de privilégios | `auth.log` / auditoria disponível | **A conferir**: [E04](evidence/README.md) |
+| 5 | Atividade autenticada como a identidade recém-criada | `auth.log` + `wtmp` | **A conferir**: [E05](evidence/README.md) |
+| 6 | Leitura de `/etc/shadow` e comando envolvendo recurso remoto | Registros `sudo`, caso presentes | **A conferir**: [E06](evidence/README.md) |
 
 ## 5. Achados e avaliação
 
-### F01 — Tentativas de força bruta por SSH
+### F01: Tentativas de força bruta por SSH
 
 Uma sequência de falhas de senha, concentrada em origem e conta, é compatível com **password guessing**, técnica **MITRE ATT&CK T1110.001**. O limiar isolado não determina comprometimento; depende de evento de sucesso e contexto adicional.
 
 - **Evidência a anexar:** E01 (falhas agregadas) e E02 (sucesso).
 - **Confiança nesta redação:** achado do cenário documentado externamente; confirmação autoral pendente.
 
-### F02 — Acesso e sessão
+### F02: Acesso e sessão
 
 O evento de autenticação bem-sucedida e registros de sessão em `wtmp` são fontes complementares. A análise deve conferir se os respectivos horários, conta, IP/host e TTY são coerentes.
 
 - **Evidência a anexar:** E02 e E03.
 - **Cuidado analítico:** `Accepted password` não prova, sozinho, cada ação posterior.
 
-### F03 — Identidade adicional privilegiada
+### F03: Identidade adicional privilegiada
 
-Os relatos públicos do Brutus descrevem criação de conta local com privilégios elevados. A criação da conta se relaciona a **T1136.001 — Create Account: Local Account**. A alteração de privilégios deve ser descrita separadamente, com os eventos que a sustentam.
+Os relatos públicos do Brutus descrevem criação de conta local com privilégios elevados. A criação da conta se relaciona a **T1136.001: Create Account: Local Account**. A alteração de privilégios deve ser descrita separadamente, com os eventos que a sustentam.
 
 - **Evidência a anexar:** E04 e E05.
 - **Significado:** possível mecanismo para manter acesso mesmo se a senha original for alterada.
 - **Cuidado:** confirmar nome, horário e grupo apenas com os seus logs.
 
-### F04 — Tentativa de acesso a credenciais e artefato remoto
+### F04: Tentativa de acesso a credenciais e artefato remoto
 
-A leitura de `/etc/shadow`, quando demonstrada, relaciona-se a **T1003.008 — OS Credential Dumping: /etc/passwd and /etc/shadow**. O registro de `curl` para recurso remoto demonstra uma **requisição/comando**, mas não comprova execução do conteúdo ou implantação de malware.
+A leitura de `/etc/shadow`, quando demonstrada, relaciona-se a **T1003.008: OS Credential Dumping: /etc/passwd and /etc/shadow**. O registro de `curl` para recurso remoto demonstra uma **requisição/comando**, mas não comprova execução do conteúdo ou implantação de malware.
 
 - **Evidência a anexar:** E06.
 - **Limitação:** ausência de telemetria de processos e rede impede conclusões sobre execução posterior, exfiltração ou persistência adicional.
@@ -122,10 +122,10 @@ A cadeia documentada no cenário é compatível com comprometimento de autentica
 
 | Evidência ou comportamento | Técnica | Precisão |
 | --- | --- | --- |
-| Muitas tentativas de senha SSH | [T1110.001 — Password Guessing](https://attack.mitre.org/techniques/T1110/001/) | Compatível com registros de falhas |
-| Conta local adicional criada | [T1136.001 — Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/) | Requer evidência de criação |
-| Leitura de `/etc/shadow` | [T1003.008 — /etc/passwd and /etc/shadow](https://attack.mitre.org/techniques/T1003/008/) | Requer evidência do comando/acesso |
-| Uso de conta legítima após comprometimento | [T1078 — Valid Accounts](https://attack.mitre.org/techniques/T1078/) | Anotar se os eventos sustentarem o uso |
+| Muitas tentativas de senha SSH | [T1110.001: Password Guessing](https://attack.mitre.org/techniques/T1110/001/) | Compatível com registros de falhas |
+| Conta local adicional criada | [T1136.001: Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/) | Requer evidência de criação |
+| Leitura de `/etc/shadow` | [T1003.008: /etc/passwd and /etc/shadow](https://attack.mitre.org/techniques/T1003/008/) | Requer evidência do comando/acesso |
+| Uso de conta legítima após comprometimento | [T1078: Valid Accounts](https://attack.mitre.org/techniques/T1078/) | Anotar se os eventos sustentarem o uso |
 
 ## 9. Evidências pendentes
 
@@ -133,8 +133,8 @@ Veja [evidence/README.md](evidence/README.md). A documentação permite integrar
 
 ## Referências
 
-- [0xdf — HTB Sherlock: Brutus (09/04/2024)](https://0xdf.gitlab.io/2024/04/09/htb-sherlock-brutus.html) — referência externa para o encadeamento do cenário, não apresentada como trabalho original do autor.
-- [Hack The Box — Streaming, Writeups and Walkthrough Guidelines](https://help.hackthebox.com/en/articles/5188925-streaming-writeups-walkthrough-guidelines).
+- [0xdf: HTB Sherlock: Brutus (09/04/2024)](https://0xdf.gitlab.io/2024/04/09/htb-sherlock-brutus.html): referência externa para o encadeamento do cenário, não apresentada como trabalho original do autor.
+- [Hack The Box: Streaming, Writeups and Walkthrough Guidelines](https://help.hackthebox.com/en/articles/5188925-streaming-writeups-walkthrough-guidelines).
 - [MITRE ATT&CK](https://attack.mitre.org/).
 
 **Autoria do texto:** organização e análise explicativa autorais, elaboradas a partir de cenário e referências públicas. **Análise pessoal dos arquivos originais:** o usuário informou a conclusão do Sherlock; os dados brutos e capturas não foram fornecidos para auditoria deste documento.
