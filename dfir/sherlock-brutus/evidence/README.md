@@ -1,6 +1,6 @@
 # Evidências da investigação: lugar reservado para seus prints
 
-As imagens são exibidas diretamente no [README do Sherlock Brutus](../README.md) assim que forem enviadas com os nomes abaixo. **A única ação necessária é adicionar as imagens correspondentes a esta pasta e manter os nomes indicados.** Os caminhos das imagens já estão incorporados no README. Antes do upload, o GitHub pode apresentar espaços de imagem indisponível.
+As imagens são exibidas diretamente no [README do Sherlock Brutus](../README.md) assim que forem enviadas com os nomes abaixo. Adicione as imagens nesta pasta, mantendo os nomes indicados. Os caminhos das imagens já estão incorporados no README. Antes do upload, o GitHub pode apresentar espaços de imagem indisponível.
 
 ## Posições planejadas
 
@@ -26,7 +26,7 @@ As imagens são exibidas diretamente no [README do Sherlock Brutus](../README.md
 ## Como adicionar
 
 1. Acesse esta pasta no GitHub e selecione **Add file → Upload files**.
-2. Renomeie as capturas conforme a tabela (E01aE08).
+2. Renomeie as capturas conforme a tabela (E01 até E08).
 3. Confirme o commit. As imagens aparecerão diretamente no README principal sem alterar o Markdown. Os campos de horário do [relatório](../investigation.md) continuarão como pendentes até serem revisados à luz das provas.
 4. Se não possuir um print específico, mantenha-o pendente em vez de criar uma prova artificial.
 
