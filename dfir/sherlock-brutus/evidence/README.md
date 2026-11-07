@@ -1,6 +1,6 @@
-# Evidências da investigação — lugar reservado para seus prints
+# Evidências da investigação: lugar reservado para seus prints
 
-A estrutura já está vinculada aos documentos do [Sherlock Brutus](../README.md). **A única ação necessária é adicionar as imagens correspondentes a esta pasta e manter os nomes indicados.** Os links abaixo passarão a abrir os prints automaticamente quando os arquivos forem enviados; antes disso, apontam para arquivos ainda inexistentes.
+As imagens são exibidas diretamente no [README do Sherlock Brutus](../README.md) assim que forem enviadas com os nomes abaixo. **A única ação necessária é adicionar as imagens correspondentes a esta pasta e manter os nomes indicados.** Os caminhos das imagens já estão incorporados no README. Antes do upload, o GitHub pode apresentar espaços de imagem indisponível.
 
 ## Posições planejadas
 
@@ -26,12 +26,12 @@ A estrutura já está vinculada aos documentos do [Sherlock Brutus](../README.md
 ## Como adicionar
 
 1. Acesse esta pasta no GitHub e selecione **Add file → Upload files**.
-2. Renomeie as capturas conforme a tabela (E01–E08).
-3. Confirme o commit. Os links na tabela passarão a funcionar sem alterar o Markdown. Os campos de horário do [relatório](../investigation.md) continuarão como pendentes até serem revisados à luz das provas.
+2. Renomeie as capturas conforme a tabela (E01aE08).
+3. Confirme o commit. As imagens aparecerão diretamente no README principal sem alterar o Markdown. Os campos de horário do [relatório](../investigation.md) continuarão como pendentes até serem revisados à luz das provas.
 4. Se não possuir um print específico, mantenha-o pendente em vez de criar uma prova artificial.
 
 ## Apresentação das provas
 
-Os links na tabela acima já estão preparados. **Não é necessário editar nenhum Markdown para adicionar suas capturas**; basta o upload com o nome correspondente. Se quiser que as imagens apareçam incorporadas no corpo da página (em vez de links), isso poderá ser feito em uma revisão visual posterior.
+As imagens já estão incorporadas no README principal do Brutus. **Não é necessário editar o Markdown**; basta enviar cada print com seu nome correspondente. Depois do upload, as imagens aparecerão diretamente na seção de evidências.
 
 **Estado atual:** nenhuma dessas capturas foi recebida nesta conversa ou validada pelo assistente. Este guia documenta apenas os arquivos esperados.
