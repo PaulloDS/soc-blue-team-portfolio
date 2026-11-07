@@ -22,10 +22,11 @@ Os demais módulos serão incorporados conforme o avanço da formação. Nem tod
 - **[Incident Handling Process — fundamentos](case-studies/01-incident-handling-process/fundamentos.md):** eventos, alertas, incidentes, etapas da resposta, triagem, correlação, enriquecimento e diferenças entre modelos do NIST.
 - **[Template de triagem de alertas](case-studies/01-incident-handling-process/template.md):** estrutura autoral para registrar hipóteses, evidências, severidade, ações e encaminhamentos em investigações futuras.
 - **[SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/):** Elastic Stack com Docker, geração de eventos sintéticos, regras de detecção, consultas KQL, testes e fluxo opcional de ataque SSH em laboratório controlado. [Limitações e evidências](siem/siem-bruteforce-lab/docs/limitations.md).
+- **[HTB Sherlock — Brutus | Investigação DFIR](dfir/sherlock-brutus/):** reconstrução do comprometimento Linux por SSH com `auth.log` e `wtmp`, hipóteses de detecção, MITRE ATT&CK e guia para anexar evidências pessoais. Estudo de caso de Sherlock aposentado; capturas da resolução pessoal pendentes.
 
 ## Competências em desenvolvimento
 
-`Incident Response` · `Alert Triage` · `Case Management` · `TheHive` · `Network Security` · `Log Analysis` · `Elastic Stack (laboratório)` · `KQL` · `Detection Engineering (laboratório)`
+`Incident Response` · `Alert Triage` · `Case Management` · `TheHive` · `Network Security` · `Log Analysis` · `Elastic Stack (laboratório)` · `KQL` · `Detection Engineering (laboratório)` · `Linux Forensics (Sherlock)`
 
 A ferramenta **TheHive** foi utilizada em ambiente de avaliação da HTB no módulo *Incident Handling Process*. A documentação aqui publicada descreve princípios gerais e referências públicas; **não reproduz o cenário nem o passo a passo do assessment**.
 
