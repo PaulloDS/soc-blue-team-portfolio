@@ -1,4 +1,4 @@
-# SOC & Blue Team — Portfólio de Estudos
+# SOC & Blue Team: Portfólio de Estudos
 
 **Formação contínua em operações de segurança, análise de alertas e resposta a incidentes.**
 
@@ -8,21 +8,21 @@ Sou graduado em **Engenharia de Software** e concluí o **Web Penetration Tester
 
 > **Escopo e transparência:** materiais de estudo não representam experiência profissional em um SOC. Os laboratórios futuros serão identificados como simulações independentes. Este repositório **não contém soluções, respostas ou spoilers** de avaliações ativas da Hack The Box.
 
-## Trilha SOC Analyst — acompanhamento
+## Trilha SOC Analyst: acompanhamento
 
 | Etapa | Módulo | Situação | Registro público |
 | --- | --- | --- | --- |
-| 01 | Incident Handling Process | **Concluído — Skills Assessment realizado** | [Fundamentos de Incident Handling](case-studies/01-incident-handling-process) |
+| 01 | Incident Handling Process | **Concluído: Skills Assessment realizado** | [Fundamentos de Incident Handling](case-studies/01-incident-handling-process) |
 | 02 | Security Monitoring & SIEM Fundamentals | **Concluído** | [SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/) |
 
 Os demais módulos serão incorporados conforme o avanço da formação. Nem todo módulo dará origem a uma publicação: **a prioridade é o valor técnico e a qualidade da documentação**, não a quantidade de arquivos.
 
 ## Conteúdo disponível
 
-- **[Incident Handling Process — fundamentos](case-studies/01-incident-handling-process/fundamentos.md):** eventos, alertas, incidentes, etapas da resposta, triagem, correlação, enriquecimento e diferenças entre modelos do NIST.
+- **[Incident Handling Process: fundamentos](case-studies/01-incident-handling-process/fundamentos.md):** eventos, alertas, incidentes, etapas da resposta, triagem, correlação, enriquecimento e diferenças entre modelos do NIST.
 - **[Template de triagem de alertas](case-studies/01-incident-handling-process/template.md):** estrutura autoral para registrar hipóteses, evidências, severidade, ações e encaminhamentos em investigações futuras.
 - **[SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/):** Elastic Stack com Docker, geração de eventos sintéticos, regras de detecção, consultas KQL, testes e fluxo opcional de ataque SSH em laboratório controlado. [Limitações e evidências](siem/siem-bruteforce-lab/docs/limitations.md).
-- **[HTB Sherlock — Brutus | Investigação DFIR](dfir/sherlock-brutus/):** reconstrução do comprometimento Linux por SSH com `auth.log` e `wtmp`, hipóteses de detecção, MITRE ATT&CK e guia para anexar evidências pessoais. Estudo de caso de Sherlock aposentado; capturas da resolução pessoal pendentes.
+- **[HTB Sherlock: Brutus | Investigação DFIR](dfir/sherlock-brutus/):** reconstrução do comprometimento Linux por SSH com `auth.log` e `wtmp`, hipóteses de detecção, MITRE ATT&CK e guia para anexar evidências pessoais. Estudo de caso de Sherlock aposentado; capturas da resolução pessoal pendentes.
 
 ## Competências em desenvolvimento
 
