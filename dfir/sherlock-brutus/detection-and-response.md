@@ -1,4 +1,4 @@
-# Engenharia de Detecção e Resposta — Brutus
+# Engenharia de Detecção e Resposta: Brutus
 
 **Escopo:** hipóteses defensivas derivadas do cenário do Sherlock Brutus. **Não são regras implantadas ou validadas em produção.** Esta página contém pseudoconsultas e procedimentos de análise que devem ser adaptados à telemetria e ao mapeamento de campos de cada ambiente.
 
@@ -95,9 +95,9 @@ Esses blocos são **pseudocódigo independente de produto**, não consultas KQL/
 
 ## 8. MITRE ATT&CK e referências
 
-- [T1110.001 — Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
-- [T1136.001 — Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/)
-- [T1003.008 — /etc/passwd and /etc/shadow](https://attack.mitre.org/techniques/T1003/008/)
-- [T1078 — Valid Accounts](https://attack.mitre.org/techniques/T1078/)
+- [T1110.001: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
+- [T1136.001: Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/)
+- [T1003.008: /etc/passwd and /etc/shadow](https://attack.mitre.org/techniques/T1003/008/)
+- [T1078: Valid Accounts](https://attack.mitre.org/techniques/T1078/)
 
 **Nota de método:** essas sugestões complementam o relatório DFIR; não alegam que uma regra Sigma, Elastic, Splunk ou Wazuh foi de fato implementada para o Brutus.
