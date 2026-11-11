@@ -14,6 +14,7 @@ Sou graduado em **Engenharia de Software** e concluí o **Web Penetration Tester
 | --- | --- | --- | --- |
 | 01 | Incident Handling Process | **Concluído: Skills Assessment realizado** | [Fundamentos de Incident Handling](case-studies/01-incident-handling-process) |
 | 02 | Security Monitoring & SIEM Fundamentals | **Concluído** | [SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/) |
+| 03 | Windows Event Logs & Finding Evil | **Concluído** | [Windows Event Logs & Finding Evil](windows-security/windows-event-logs-finding-evil/) |
 
 Os demais módulos serão incorporados conforme o avanço da formação. Nem todo módulo dará origem a uma publicação: **a prioridade é o valor técnico e a qualidade da documentação**, não a quantidade de arquivos.
 
@@ -23,10 +24,11 @@ Os demais módulos serão incorporados conforme o avanço da formação. Nem tod
 - **[Template de triagem de alertas](case-studies/01-incident-handling-process/template.md):** estrutura autoral para registrar hipóteses, evidências, severidade, ações e encaminhamentos em investigações futuras.
 - **[SIEM Brute Force Detection Lab](siem/siem-bruteforce-lab/):** Elastic Stack com Docker, geração de eventos sintéticos, regras de detecção, consultas KQL, testes e fluxo opcional de ataque SSH em laboratório controlado. [Limitações e evidências](siem/siem-bruteforce-lab/docs/limitations.md).
 - **[HTB Sherlock: Brutus | Investigação DFIR](dfir/sherlock-brutus/):** reconstrução do comprometimento Linux por SSH com `auth.log` e `wtmp`, hipóteses de detecção, MITRE ATT&CK e guia para anexar evidências pessoais. Estudo de caso de Sherlock aposentado; capturas da resolução pessoal pendentes.
+- **[Windows Event Logs & Finding Evil](windows-security/windows-event-logs-finding-evil/):** fundamentos de Event Viewer, Security Event IDs, Sysmon, ETW e PowerShell, com [playbook](windows-security/windows-event-logs-finding-evil/investigation-playbook.md) e [script de triagem](windows-security/windows-event-logs-finding-evil/triage-windows-events.ps1) autorais. Sem divulgação de assessment.
 
 ## Competências em desenvolvimento
 
-`Incident Response` · `Alert Triage` · `Case Management` · `TheHive` · `Network Security` · `Log Analysis` · `Elastic Stack (laboratório)` · `KQL` · `Detection Engineering (laboratório)` · `Linux Forensics (Sherlock)`
+`Incident Response` · `Alert Triage` · `Case Management` · `TheHive` · `Network Security` · `Log Analysis` · `Elastic Stack (laboratório)` · `KQL` · `Detection Engineering (laboratório)` · `Linux Forensics (Sherlock)` · `Windows Event Logs` · `Sysmon (estudos)` · `PowerShell para análise de eventos`
 
 A ferramenta **TheHive** foi utilizada em ambiente de avaliação da HTB no módulo *Incident Handling Process*. A documentação aqui publicada descreve princípios gerais e referências públicas; **não reproduz o cenário nem o passo a passo do assessment**.
 
@@ -41,7 +43,7 @@ Um alerta é um ponto de partida, não uma conclusão. Antes de classificá-lo, 
 
 ## Próximas entregas propostas
 
-- Ampliar a coleta de telemetria real com Windows Event Logs / Sysmon;
+- Executar laboratório próprio de coleta e correlação de Windows Event Logs / Sysmon, com evidências de execução;
 - Versionar evidências locais do Kibana, distinguindo testes Python e alertas do mecanismo de detecção;
 - Investigar novos cenários e produzir relatórios baseados em logs próprios de laboratório.
 
